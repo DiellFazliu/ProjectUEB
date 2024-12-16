@@ -228,3 +228,23 @@ button {
     accent-color: rgba(203, 192, 66, 0.8);
     color: white;
 }
+.logo-wrapper {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    gap: 10px; 
+    padding: 10px 20px;
+    z-index: 1000;
+}
+.name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700; 
+    letter-spacing: 2px; 
+    color: rgb(141, 224, 32);
+}
+
