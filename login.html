@@ -8,10 +8,20 @@
     <link rel="stylesheet" href="login.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+        <style>
+            .error-message {
+                color: red;
+                font-size: 12px;
+                margin-top: 5px;
+                display: none;
+            }
+    
+            .input-error {
+                border: 1px solid red;
+            }
+        </style>
 
 </head>
 
@@ -24,18 +34,23 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form onsubmit="validate(event)">
         <h3>Login</h3>
         <div class="login-subtitle">Glad you're back!</div>
+
         <label for="username"></label>
-        <input type="text" placeholder="Username" id="username">
+        <input type="text" placeholder="Username" id="username" required minlength="6" maxlength="20">
+        <div id="usernameError" class="error-message">Username must contain a dot.</div>
+    
         <label for="password"></label>
-        <input type="password" placeholder="Password" id="password">
+        <input type="password" placeholder="Password" id="password" required minlength="8" maxlength="16">
+        <div id="passwordError" class="error-message">Password must be 8-16 characters long.</div>
+
         <div class="remember-me">
             <input type="checkbox" id="rememberMe">
             <label for="rememberMe">Remember me</label>
         </div>
-        <button type="button" id="redirectButton">Login</button>
+        <input id="button" type="submit" value="Login">
         <div class="forgot-password">
             <a href="#">Forgot password?</a>
         </div>
@@ -56,7 +71,42 @@
         <p>Log in to explore top car listings,<br>
             manage your profile, and find exclusive offers.</p>
     </div>
-    <script></script>
+    <script>
+        function validate(event) {
+            event.preventDefault();
+
+            var username = document.getElementById("username");
+            var password = document.getElementById("password");
+
+            var usernameError = document.getElementById("usernameError");
+            var passwordError = document.getElementById("passwordError");
+
+            username.classList.remove("input-error");
+            password.classList.remove("input-error");
+            usernameError.style.display = "none";
+            passwordError.style.display = "none";
+
+            var isValid = true;
+
+            if (username.value.length == 0 || username.value.indexOf(".") === -1) {
+                isValid = false;
+                username.classList.add("input-error");
+                usernameError.style.display = "block";
+                usernameError.textContent = "Username must contain a dot.";
+            }
+
+            if (password.value.length < 8 || password.value.length > 16) {
+                isValid = false;
+                password.classList.add("input-error");
+                passwordError.style.display = "block";
+                passwordError.textContent = "Password must be 8-16 characters long.";
+            }
+
+            if (isValid) {
+                window.location.href = "project.html";
+            }
+        }
+    </script>
 </body>
 
 </html>
